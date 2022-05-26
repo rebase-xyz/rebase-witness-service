@@ -7,9 +7,10 @@ import { issueVC } from "../utils";
 const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
-  const { rawGistUrl } = req.body;
-
   try {
+    if (!req.body.rawGistUrl) throw new Error(`Missing rawGistUrl`);
+    const { rawGistUrl } = req.body;
+
     const response = await axios.get(rawGistUrl);
     const content = response.data;
 
